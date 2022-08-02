@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/srivi/Downloads/fastkart.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="125"/><column_width id="3" width="1522"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,11:mainCardDetails"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="CardDetails" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="151"/><column index="3" value="90"/><column index="4" value="111"/><column index="5" value="103"/><column index="6" value="79"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">SELECT ProductId,ProductName, QuantityAvailable
+FROM Products
+order by QuantityAvailable DESC limit 3;
+SELECT pd.EmailId,pd.QuantityPurchased as Total_Transactions
+FROM PurchaseDetails pd
+INNER JOIN Products p
+ON pd.ProductId=p.ProductId
+GROUP by EmailId
+HAVING count(QuantityPurchased)&gt;10
+ORDER by Total_Transactions DESC;
+Select c.CategoryName as NameOfTheCategory, p.QuantityAvailable as
+TotalQuantityAvailable
+from Products p
+INNER JOIN Categories c
+ON p.CategoryId = c.CategoryId
+group by c.CategoryName
+Order by p.QuantityAvailable DESC;
+SELECT p.ProductId,p.ProductName,c.CategoryName,sum(pd.QuantityPurchased) as
+Total_Purchased_Quantity
+FROM Categories c
+INNER JOIN Products p
+ON c.CategoryId=p.CategoryId
+INNER JOIN PurchaseDetails pd
+ON p.ProductId=pd.ProductId;
+Select Gender, count (*) as NoOfMalesOrFemales
+From Users
+Group by Gender;
+SELECT ProductId,ProductName,Price,
+CASE
+ WHEN Price &lt; 2000 THEN 'Affordable'
+ WHEN Price BETWEEN 2000 AND 50000 THEN 'High And Stuff'
+ WHEN Price &gt; 50000 THEN 'Luxury' 
+ ELSE Price
+ END as ItemClasses
+FROM Products
+ORDER BY Price desc;
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
